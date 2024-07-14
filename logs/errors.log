@@ -1,0 +1,6 @@
+[2024-07-11T20:39:43.391Z] error: Probando log de nivel error
+[2024-07-11T20:39:43.392Z] fatal: Probando log de nivel fatal
+[2024-07-11T20:41:09.176Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
+[2024-07-11T20:41:43.205Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
+[2024-07-11T20:43:15.644Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
+[2024-07-11T20:45:11.634Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
