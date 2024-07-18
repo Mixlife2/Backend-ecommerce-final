@@ -52,7 +52,6 @@ describe("Pruebas al router Carts", function () {
         response = await requester.post("/api/carts").send({});
         console.log("Respuesta del POST /api/carts:", response.body, response.status);
 
-        // Validaciones sin usar expect
         if (response.status !== 201) {
             throw new Error(`Se esperaba un status 201 pero se recibió ${response.status}`);
         }

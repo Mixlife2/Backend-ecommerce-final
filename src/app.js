@@ -7,7 +7,8 @@ const {engine} = require('express-handlebars');
 const vistaRoutes = require('./routes/vistasRoutes');
 const sessionsRoutes = require('./routes/sessionsRoutes')
 const mockingproducts = require('./routes/mockingRoutes.js')
-const usersRoutes =require ('./routes/usersRoutes.js')
+const usersRoutes =require ('./routes/usersRoutes.js');
+const adminRoutes= require("./routes/adminRoutes.js")
 const path = require('path');
 const connectDB = require('./db'); 
 const session = require('express-session')
@@ -15,7 +16,9 @@ const {Server} = require('socket.io')
 const initPassport = require('./config/passport.config.js');
 const passport = require('passport');
 const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require ("swagger-ui-express")
+const swaggerUi = require ("swagger-ui-express");
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 
 const PORT = 8080;
 
@@ -55,12 +58,28 @@ app.use(passport.initialize())
 app.use(passport.session()) //solo si usamos sesiones
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(spec))
 
-app.engine('handlebars', engine());
+app.engine('handlebars', engine({
+    helpers: {
+        json: function(context) {
+            return JSON.stringify(context, null, 2);
+        },
+        eq: function (a, b) {
+            return a === b;
+        }
+    },
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+}));
 app.set('view engine', 'handlebars');
-app.set("views", "./src/views")
+app.set("views", "./src/views");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -79,11 +98,13 @@ app.use((err, req, res, next) => {
     res.json({ message: 'Prueba de logger completada' });
   }); 
 
+
 app.use('/api/products', productRoutes);
 app.use('/products', productRoutes);
 app.use('/carts', cartRoutes);
 app.use('/api/carts', cartRoutes);
-app.use('/', vistaRoutes);
+app.use('/', vistaRoutes);;
+app.use('/api/admin', adminRoutes);
 app.use('/realtimeproducts', vistaRoutes);
 app.use('/api/sessions', sessionsRoutes)
 app.use('/api/users', usersRoutes )
