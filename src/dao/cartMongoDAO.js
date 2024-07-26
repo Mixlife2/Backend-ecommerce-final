@@ -9,6 +9,14 @@ class CartMongoDAO {
       return await Cart.create({products:[]})
   }
 
+  async findCart(filtro = {}, populateOptions = null) {
+    let query = Cart.findOne(filtro);
+    if (populateOptions) {
+        query = query.populate(populateOptions);
+    }
+    return await query.lean();
+}
+
     async getCart() {
         try {
           return await Cart.find();

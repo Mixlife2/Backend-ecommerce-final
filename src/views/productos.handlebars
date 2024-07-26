@@ -1,13 +1,24 @@
 <body>
     <h1>Lista de Productos</h1>
+    {{#if usuario}}
+    <h3 data-carrito="{{usuario.cart}}" id="h3Usuario">Usuario conectado: {{usuario._doc.first_name}} {{usuario._doc.last_name}}</h3>
+    {{else}}
+    <p>Usuario no disponible</p>
+    {{/if}}
+
+
     <ul>
         {{#each productos}}
             <li>
-                <h2>{{this.name}}</h2>
+                <h2>{{this.title}}</h2>
                 <p>Precio: {{this.price}}</p>
                 <p>Descripción: {{this.description}}</p>
-                <button onclick="agregarAlCarrito('{{this._id}}')">Agregar al carrito</button>
+                <p>Cantidad: {{this.stock}}</p>
+                <button onclick="agregar('{{_id}}')">Agregar a carrito</button>
             </li>
         {{/each}}
     </ul>
+    <a href="/carrito">Ver Carrito</a>
+
+    <script src="/js/productos.js"></script>
 </body>

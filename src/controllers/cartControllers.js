@@ -82,8 +82,13 @@ class CartController {
     static async updateProductQuantity(req, res) {
         const { cartId, productId } = req.params;
         const { quantity } = req.body;
-      
+    
         try {
+            // Verifica que `quantity` esté definido y sea un número válido
+            if (!quantity || isNaN(quantity) || quantity <= 0) {
+                throw new Error('Cantidad no válida');
+            }
+    
             await cartDAO.updateProductQuantity(cartId, productId, quantity);
             res.json({
                 message: "Cantidad del producto actualizada exitosamente en el carrito",
@@ -94,6 +99,7 @@ class CartController {
             });
         }
     }
+    
     static async purchaseCart(req, res) {
         const cartId = req.params.cid;
 

@@ -8,6 +8,14 @@ class CartService {
     async createCartClean() {
         return await this.cartDAO.create()
     }
+    async getCartWithProducts(filtro = {}) {
+        try {
+            // Asegúrate de que `findCart` está correctamente definido y llamado
+            return await this.cartDAO.findCart(filtro, "products.productId");
+        } catch (error) {
+            throw new Error("Error al obtener el carrito con productos: " + error.message);
+        }
+    }
 }
 
 const cartServices =  new CartService(new CartMongoDAO())

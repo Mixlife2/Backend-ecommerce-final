@@ -11,7 +11,9 @@
     </header>
 
     <main>
-        <h2>Carrito de {{usuario.first_name}} {{usuario.last_name}}</h2>
+        {{#if usuario}}
+        <h2>Carrito de {{usuario._doc.first_name}} {{usuario._doc.last_name}}</h2>
+        {{/if}}
         <h3>Id carrito: {{carrito._id}}</h3>
         <hr>
 
@@ -31,10 +33,6 @@
 
         <br>
         <a href="/productos">Seguir comprando</a>
-        <a href="/carrito/checkout" class="btn-checkout">Finalizar compra</a> <!-- Enlace para proceder con la compra -->
+        <a href="/carrito/checkout" class="btn-checkout">Finalizar compra</a>
     </main>
-
-    <footer>
-        <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
-    </footer>
 </body>

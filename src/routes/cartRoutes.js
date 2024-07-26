@@ -13,7 +13,7 @@ router.delete('/:cartId/products/:productId',auth('usuario'), CartController.rem
   
 router.delete("/:cartId",auth('usuario'), CartController.removeAllProducts);
   
-router.put("/:cartId/products/:productId",auth('usuario'), CartController.updateProductQuantity);
+router.put("/:cartId/products/:productId",auth(['usuario', 'admin', 'premium']), CartController.updateProductQuantity);
 
 router.post("/:cid/purchase", auth('usuario'), CartController.purchaseCart);
 
