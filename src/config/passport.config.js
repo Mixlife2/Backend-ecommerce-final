@@ -5,6 +5,7 @@ const { creaHash, validaPassword } = require('../utils/utils.js');
 const usersManager = require('../dao/usersMongoDAO.js')
 const usuariosService = require('../services/usersServices.js')
 const bcrypt = require ('bcrypt')
+const cartServices = require("../services/cartServices.js")
 
 
 const usuariosManager = new usersManager
@@ -20,9 +21,9 @@ const initPassport = () => {
                 passReqToCallback: true,
             },
             async function(req, email, password, done) {
-                console.log("passport registro")
+                console.log("passport registro");
                 try {
-                    console.log(req.body)
+                    console.log(req.body);
                     const { first_name, last_name, age, role } = req.body;
                     if (!first_name || !last_name || !email || !age || !password || !role) {
                         return done(null, false, { message: "Todos los campos son obligatorios." });
@@ -35,13 +36,16 @@ const initPassport = () => {
     
                     const hashedPassword = await bcrypt.hash(password, 10);
     
+                    let nuevoCarrito=await cartServices.createCartClean() 
+    
                     const nuevoUsuario = await usuariosService.createUser({
                         first_name,
                         last_name,
                         email,
                         age,
                         password: hashedPassword,
-                        role
+                        role,
+                        cart: nuevoCarrito._id 
                     });
     
                     return done(null, nuevoUsuario);

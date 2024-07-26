@@ -1,0 +1,40 @@
+<body>
+    <header>
+        <h1>Bienvenido {{usuario.first_name}} {{usuario.last_name}}</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/productos">Productos</a>
+            <a href="/carrito">Carrito</a>
+            <a href="/perfil">Perfil</a>
+            <a href="/logout">Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Carrito de {{usuario.first_name}} {{usuario.last_name}}</h2>
+        <h3>Id carrito: {{carrito._id}}</h3>
+        <hr>
+
+        {{#if carrito.productos.length}}
+            <ul>
+                {{#each carrito.productos}}
+                    <li>
+                        <strong>{{this.producto.descripcion}}</strong> - 
+                        Cantidad: {{this.cantidad}} - 
+                        Precio: {{this.producto.precio}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>El carrito está vacío.</p>
+        {{/if}}
+
+        <br>
+        <a href="/productos">Seguir comprando</a>
+        <a href="/carrito/checkout" class="btn-checkout">Finalizar compra</a> <!-- Enlace para proceder con la compra -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+    </footer>
+</body>

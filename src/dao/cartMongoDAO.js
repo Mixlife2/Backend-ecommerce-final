@@ -5,6 +5,10 @@ class CartMongoDAO {
         
     }
 
+    async create(){
+      return await Cart.create({products:[]})
+  }
+
     async getCart() {
         try {
           return await Cart.find();

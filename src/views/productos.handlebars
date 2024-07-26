@@ -1,0 +1,13 @@
+<body>
+    <h1>Lista de Productos</h1>
+    <ul>
+        {{#each productos}}
+            <li>
+                <h2>{{this.name}}</h2>
+                <p>Precio: {{this.price}}</p>
+                <p>Descripción: {{this.description}}</p>
+                <button onclick="agregarAlCarrito('{{this._id}}')">Agregar al carrito</button>
+            </li>
+        {{/each}}
+    </ul>
+</body>

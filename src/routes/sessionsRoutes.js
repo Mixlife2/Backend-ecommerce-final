@@ -140,13 +140,6 @@ router.post("/recoverpsw03", async (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
 router.get('/current', (req, res) => {
     if (req.isAuthenticated()) {
         const userDTO = new UserDTO(req.user);
