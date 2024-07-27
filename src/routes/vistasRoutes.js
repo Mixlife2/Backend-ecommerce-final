@@ -28,13 +28,12 @@ router.get('/productos', auth(['usuario', 'admin', 'premium']), async (req, res)
         const productos = await Product.find({});
         const usuario = req.session.usuario;
 
-        // Accede a los datos del usuario correctamente
         const cartId = usuario._doc.cart;
         res.status(200).render("productos", {
             productos,
             usuario: {
-                ...usuario._doc, // Propaga las propiedades del documento del usuario
-                cart: cartId // Asegúrate de incluir el cart ID correctamente
+                ...usuario._doc, 
+                cart: cartId 
             }
         });
     } catch (err) {
@@ -45,20 +44,14 @@ router.get('/productos', auth(['usuario', 'admin', 'premium']), async (req, res)
 
 router.get('/carrito', auth(['user', 'admin']), async (req, res) => {
     try {
-        // Usa el ID del carrito del usuario desde la sesión
         const cartId = req.session.usuario._doc.cart;
-
-        // Obtén el carrito del usuario por su ID de carrito
         const carrito = await Cart.findById(cartId).populate('products.productId').exec();
 
         if (!carrito) {
             return res.status(404).send('Carrito no encontrado');
         }
-
-        // Propaga las propiedades del documento del usuario a un nuevo objeto usuario
         const usuario = { ...req.session.usuario._doc };
 
-        // Renderiza la vista del carrito con los datos obtenidos
         res.render('carrito', { carrito, usuario });
     } catch (error) {
         console.error("Error al obtener el carrito:", error);

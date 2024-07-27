@@ -4,7 +4,6 @@ const ProductMongoDAO = require('../dao/productMongoDAO');
 
 const router = express.Router();
 
-// Endpoint para obtener productos mock
 router.get('/mockingproducts', async (req, res) => {
   const mockProducts = generateMockProducts();
   res.json(mockProducts);

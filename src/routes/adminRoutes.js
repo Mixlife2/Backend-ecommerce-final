@@ -35,7 +35,4 @@ router.delete('/:uid', auth(['admin']), async (req, res) => {
     }
 });
 
-
-
-
 module.exports = router;

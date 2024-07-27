@@ -7,15 +7,15 @@ class CartMongoDAO {
 
     async create(){
       return await Cart.create({products:[]})
-  }
+      }
 
-  async findCart(filtro = {}, populateOptions = null) {
+    async findCart(filtro = {}, populateOptions = null) {
     let query = Cart.findOne(filtro);
     if (populateOptions) {
         query = query.populate(populateOptions);
     }
     return await query.lean();
-}
+      }
 
     async getCart() {
         try {
@@ -36,8 +36,7 @@ class CartMongoDAO {
           throw new Error("Error interno del servidor al crear el carrito");
         }
       }
-      
-    
+         
       async addProductCart(cartId, productId) {
         try {
             console.log(`Buscando carrito con ID: ${cartId}`);
@@ -66,9 +65,8 @@ class CartMongoDAO {
             console.error('Error en addProductCart:', error.message);
             throw new Error(error.message);
         }
-    }
-    
-    
+      }
+     
       async removeProductsCart(cartId, productId) {
         try {
           const cart = await Cart.findById(cartId);
@@ -137,7 +135,7 @@ class CartMongoDAO {
                 error.message
             );
         }
-    }
+      }
     
     }
 

@@ -21,7 +21,6 @@ class CartController {
         }
     }
 
-
     static async getCartById(req, res) {
         const cartId = req.params.cid;
 
@@ -71,6 +70,7 @@ class CartController {
             });
         }
     }
+
     static async removeAllProducts(req, res) {
         const cartId = req.params.cartId;
         try {
@@ -84,6 +84,7 @@ class CartController {
             });
         }
     }
+
     static async addOrUpdateProduct(req, res) {
         try {
             const { cid, pid } = req.params;
@@ -117,11 +118,7 @@ class CartController {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
-    }
-    
-    
-
-    
+    } 
     
     static async purchaseCart(req, res) {
         const cartId = req.params.cid;

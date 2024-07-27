@@ -39,7 +39,6 @@ router.get("/errorLogin", (req, res)=>{
     return res.status(400).json({error:`Error en el proceso de login... :(`})
 })
 
-
 router.post('/login', passport.authenticate("login", {failureRedirect:"/api/sessions/errorLogin"}), async(req,res)=>{
 
     let usuario=req.user
@@ -148,9 +147,6 @@ router.get('/current', (req, res) => {
         return res.status(401).json({ error: "No hay usuario autenticado." });
     }
 });
-
-
-
 
 router.get('/logout',(req,res)=>{
 
