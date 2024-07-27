@@ -1,10 +1,11 @@
 <body>
     <h1>Lista de Productos</h1>
     {{#if usuario}}
-    <h3 data-carrito="{{usuario.cart}}" id="h3Usuario">Usuario conectado: {{usuario._doc.first_name}} {{usuario._doc.last_name}}</h3>
+    <h3 data-carrito="{{usuario.cart}}" id="h3Usuario">Usuario conectado: {{usuario.first_name}} {{usuario.last_name}}</h3>
     {{else}}
     <p>Usuario no disponible</p>
     {{/if}}
+
 
 
     <ul>

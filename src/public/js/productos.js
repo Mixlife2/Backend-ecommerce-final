@@ -11,10 +11,7 @@ const agregar = async (pid) => {
         return;
     }
 
-    console.log('Cart ID:', cid);
-    console.log('Product ID:', pid);
-
-    // Realiza la solicitud fetch
+    // Realiza la solicitud fetch para agregar o actualizar la cantidad de producto
     try {
         let respuesta = await fetch(`/api/carts/${cid}/products/${pid}`, {
             method: "PUT"
@@ -26,7 +23,6 @@ const agregar = async (pid) => {
         } else {
             alert("Error al agregar producto al carrito");
         }
-        console.log(datos);
     } catch (error) {
         console.error("Error al agregar producto al carrito:", error);
     }

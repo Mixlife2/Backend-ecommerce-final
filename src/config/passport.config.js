@@ -21,9 +21,7 @@ const initPassport = () => {
                 passReqToCallback: true,
             },
             async function(req, email, password, done) {
-                console.log("passport registro");
                 try {
-                    console.log(req.body);
                     const { first_name, last_name, age, role } = req.body;
                     if (!first_name || !last_name || !email || !age || !password || !role) {
                         return done(null, false, { message: "Todos los campos son obligatorios." });

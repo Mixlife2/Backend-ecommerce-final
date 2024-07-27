@@ -1,6 +1,8 @@
 const CartMongoDAO = require('../dao/cartMongoDAO.js');
 const Cart = require('../dao/models/cartModels.js');
 const { generateUniqueCode, calculateTotalAmount } = require('../utils/utils.js');
+const Product = require("../dao/models/productModels.js");
+const mongoose = require("mongoose")
 
 const cartDAO = new CartMongoDAO();
 
@@ -43,11 +45,14 @@ class CartController {
     static async addProductToCart(req, res) {
         const cartId = req.params.cid;
         const productId = req.params.pid;
-
+    
         try {
+            console.log(`Intentando añadir producto ${productId} al carrito ${cartId}`);
             const addProduct = await cartDAO.addProductCart(cartId, productId);
+            console.log('Resultado de añadir producto:', addProduct);
             res.status(200).json(addProduct);
         } catch (error) {
+            console.error('Error al añadir producto al carrito:', error.message);
             res.status(400).json({ error: error.message });
         }
     }
@@ -79,26 +84,44 @@ class CartController {
             });
         }
     }
-    static async updateProductQuantity(req, res) {
-        const { cartId, productId } = req.params;
-        const { quantity } = req.body;
-    
+    static async addOrUpdateProduct(req, res) {
         try {
-            // Verifica que `quantity` esté definido y sea un número válido
-            if (!quantity || isNaN(quantity) || quantity <= 0) {
-                throw new Error('Cantidad no válida');
+            const { cid, pid } = req.params;
+    
+            // Encuentra el carrito y el producto
+            const cart = await Cart.findById(cid);
+            const product = await Product.findById(pid);
+    
+            if (!cart || !product) {
+                return res.status(404).json({ message: 'Carrito o producto no encontrado' });
             }
     
-            await cartDAO.updateProductQuantity(cartId, productId, quantity);
-            res.json({
-                message: "Cantidad del producto actualizada exitosamente en el carrito",
-            });
+            // Verifica si el producto ya está en el carrito
+            const cartProduct = cart.products.find(p => p.productId.toString() === pid);
+            if (cartProduct) {
+                // Incrementa la cantidad
+                cartProduct.quantity += 1;
+            } else {
+                // Agrega el producto al carrito
+                cart.products.push({ productId: pid, quantity: 1 });
+            }
+    
+            // Guarda el carrito actualizado
+            await cart.save();
+    
+            // Decrementa el stock del producto
+            product.stock -= 1;
+            await product.save();
+    
+            res.status(200).json(cart);
         } catch (error) {
-            res.status(500).json({
-                error: "Error al actualizar la cantidad del producto en el carrito: " + error.message,
-            });
+            res.status(500).json({ error: error.message });
         }
     }
+    
+    
+
+    
     
     static async purchaseCart(req, res) {
         const cartId = req.params.cid;
