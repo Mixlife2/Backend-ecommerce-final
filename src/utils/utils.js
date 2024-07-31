@@ -38,12 +38,16 @@ function generateUniqueCode() {
     return code;
 }
 
-// Función para calcular el total de la compra
 function calculateTotalAmount(products) {
     let total = 0;
 
     for (const item of products) {
-        total += item.quantity * item.product.price;
+        // Verificar si `item.productId` y `item.productId.price` están definidos
+        if (item.productId && item.productId.price !== undefined) {
+            total += item.quantity * item.productId.price;
+        } else {
+            console.warn('Product or price is undefined for item:', item);
+        }
     }
 
     return total;

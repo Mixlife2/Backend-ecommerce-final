@@ -1,5 +1,6 @@
 const Cart = require('./models/cartModels.js');
-
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 class CartMongoDAO {
     constructor() {
         
@@ -34,36 +35,6 @@ class CartMongoDAO {
         } catch (error) {
           console.error("Error al crear el carrito:", error);
           throw new Error("Error interno del servidor al crear el carrito");
-        }
-      }
-         
-      async addProductCart(cartId, productId) {
-        try {
-            console.log(`Buscando carrito con ID: ${cartId}`);
-            let carrito = await Cart.findById(cartId);
-    
-            if (!carrito) {
-                throw new Error('Carrito no encontrado');
-            }
-    
-            console.log('Carrito encontrado:', carrito);
-            const productIndex = carrito.products.findIndex(p => p.productId.toString() === productId);
-    
-            if (productIndex > -1) {
-                console.log(`Producto ya en el carrito. Incrementando cantidad del producto ${productId}`);
-                carrito.products[productIndex].quantity += 1;
-            } else {
-                console.log(`Añadiendo nuevo producto ${productId} al carrito`);
-                carrito.products.push({ productId, quantity: 1 });
-            }
-    
-            console.log('Guardando carrito actualizado');
-            await carrito.save();
-            console.log('Carrito guardado:', carrito);
-            return carrito;
-        } catch (error) {
-            console.error('Error en addProductCart:', error.message);
-            throw new Error(error.message);
         }
       }
      

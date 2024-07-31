@@ -4,3 +4,5 @@
 [2024-07-11T20:41:43.205Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
 [2024-07-11T20:43:15.644Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
 [2024-07-11T20:45:11.634Z] error: Error inesperado en el servidor: E11000 duplicate key error collection: ecommerse.products index: code_1 dup key: { code: "EX123" }
+[2024-07-30T20:49:31.374Z] error: Expected double-quoted property name in JSON at position 166
+[2024-07-30T20:51:39.836Z] error: Expected double-quoted property name in JSON at position 78
