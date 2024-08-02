@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.status(200).render('home', { login: req.session.usuario });
 });
 
-router.get("/chat", auth(['user', 'admin']), (req, res) => {
+router.get("/chat", auth(['user', 'admin', 'premium']), (req, res) => {
     res.render("chat", { login: req.session.usuario });
 });
 
@@ -23,7 +23,7 @@ router.get('/login', (req, res) => {
     res.status(200).render('login', { login: req.session.usuario });
 });
 
-router.get('/productos', auth(['usuario', 'admin', 'premium']), async (req, res) => {
+router.get('/productos', auth(['user', 'admin', 'premium']), async (req, res) => {
     try {
         const productos = await Product.find({});
         const usuario = req.session.usuario;
