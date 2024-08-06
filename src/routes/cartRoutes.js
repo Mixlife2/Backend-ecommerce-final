@@ -11,7 +11,7 @@ router.delete('/:cartId/products/:productId',auth('user'), CartController.remove
   
 router.delete("/:cartId",auth('user'), CartController.removeAllProducts);
   
-router.put('/:cid/products/:pid', auth(['user', 'admin', 'premium']), CartController.addOrUpdateProduct);
+router.put('/:cid/products/:pid', auth(['admin', 'premium']), CartController.addOrUpdateProduct);
 
 router.post("/:cid/purchase", auth(['user', 'admin', 'premium']), CartController.finalizePurchase);
 
