@@ -58,12 +58,6 @@ router.get('/callbackGithub', passport.authenticate("github", {failureRedirect:"
 
     req.session.usuario=req.user
     return res.redirect('/perfil');
-    res.setHeader('Content-Type','application/json');
-    return res.status(200).json({
-        payload:"Login correcto", 
-        usuario:req.user
-        
-    });
 })
 
 router.post("/recoverpsw01", async(req, res) => {

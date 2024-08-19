@@ -1,7 +1,6 @@
 const passport = require('passport')
 const local = require('passport-local');
 const github = require('passport-github2')
-const { creaHash, validaPassword } = require('../utils/utils.js');
 const usersManager = require('../dao/usersMongoDAO.js')
 const usuariosService = require('../services/usersServices.js')
 const bcrypt = require ('bcrypt')

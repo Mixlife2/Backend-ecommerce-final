@@ -42,7 +42,6 @@ function calculateTotalAmount(products) {
     let total = 0;
 
     for (const item of products) {
-        // Verificar si `item.productId` y `item.productId.price` están definidos
         if (item.productId && item.productId.price !== undefined) {
             total += item.quantity * item.productId.price;
         } else {
